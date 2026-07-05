@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>enri</title>
+    <description>Portfolio di enri costruito con Jekyll</description>
+    <link>http://localhost:4000</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Sun, 05 Jul 2026 16:45:22 +0200</pubDate>
+    <lastBuildDate>Sun, 05 Jul 2026 16:45:22 +0200</lastBuildDate>
+    <generator>Jekyll v4.3.4</generator>
+    
+    
+      <item>
+        <title>un post con immagine</title>
+        <description>&lt;p&gt;questo post mostra l’immagine img_20190206_111441(1).jpg caricata dall’utente.&lt;/p&gt;
+
+&lt;p&gt;essendo contrassegnato con &lt;code class=&quot;language-plaintext highlighter-rouge&quot;&gt;mastodon: true&lt;/code&gt;, la homepage del sito mostrerà direttamente l’immagine (centrata) invece del testo di questo post.&lt;/p&gt;
+</description>
+        <pubDate>Sat, 04 Jul 2026 18:00:00 +0200</pubDate>
+        <link>http://localhost:4000/articles/immagine-post/</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/immagine-post/</guid>
+        
+          <category>fotografia</category>
+        
+      </item>
+    
+      <item>
+        <title>circo un immaginario di città ospitale</title>
+        <description>&lt;p&gt;questo documento descrive il progetto circo, un immaginario di città ospitale.&lt;/p&gt;
+
+&lt;div class=&quot;pdf-viewer&quot; data-pdf-url=&quot;/assets/docs/2021-circo-ospitale.pdf&quot;&gt;
+  &lt;div class=&quot;pdf-controls&quot;&gt;
+    &lt;button class=&quot;pdf-btn pdf-prev-btn&quot; aria-label=&quot;pagina precedente&quot;&gt;&amp;lt;&lt;/button&gt;
+    &lt;button class=&quot;pdf-btn pdf-fullscreen-btn&quot; aria-label=&quot;schermo intero&quot;&gt;fullscreen&lt;/button&gt;
+    &lt;button class=&quot;pdf-btn pdf-next-btn&quot; aria-label=&quot;pagina successiva&quot;&gt;&amp;gt;&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;pdf-canvas-container&quot;&gt;
+    &lt;canvas class=&quot;pdf-canvas&quot;&gt;&lt;/canvas&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;pdf-footer&quot;&gt;
+    &lt;span class=&quot;pdf-page-info&quot;&gt;pagina &lt;span class=&quot;pdf-current-page&quot;&gt;1&lt;/span&gt; di &lt;span class=&quot;pdf-total-pages&quot;&gt;0&lt;/span&gt;&lt;/span&gt;
+    &lt;a href=&quot;/assets/docs/2021-circo-ospitale.pdf&quot; class=&quot;pdf-download-link&quot; download=&quot;&quot;&gt;scarica pdf&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Fri, 03 Jul 2026 11:20:00 +0200</pubDate>
+        <link>http://localhost:4000/articles/documento-pdf/</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/documento-pdf/</guid>
+        
+          <category>documenti</category>
+        
+      </item>
+    
+      <item>
+        <title>integrazione video peertube</title>
+        <description>&lt;p&gt;questo post mostra l’integrazione di un video peertube ospitato su tubocatodico.bida.im.&lt;/p&gt;
+
+&lt;p&gt;il video è incorporato utilizzando la classe reattiva per il corretto adattamento a tutti gli schermi (incluso mobile).&lt;/p&gt;
+
+&lt;div class=&quot;peertube-embed&quot;&gt;
+  &lt;iframe src=&quot;https://tubocatodico.bida.im/videos/embed/ofj9oxHkBCXhjQoLxweRg2&quot; frameborder=&quot;0&quot; allowfullscreen=&quot;&quot; sandbox=&quot;allow-same-origin allow-scripts allow-popups&quot;&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Thu, 02 Jul 2026 14:30:00 +0200</pubDate>
+        <link>http://localhost:4000/articles/video-peertube/</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/video-peertube/</guid>
+        
+          <category>video</category>
+        
+      </item>
+    
+      <item>
+        <title>Benvenuto nel mio nuovo Portfolio</title>
+        <description>&lt;p&gt;Benvenuto sul mio nuovo portfolio personale minimalista!&lt;/p&gt;
+
+&lt;p&gt;Questo sito è interamente statico, basato su &lt;strong&gt;Jekyll&lt;/strong&gt;, ed utilizza le collezioni per organizzare i contenuti. 
+Qui troverai i miei articoli suddivisi per categoria nel menu laterale (in stile VS Code), video integrati da piattaforme decentralizzate come PeerTube, e documenti PDF che puoi sfogliare direttamente online.&lt;/p&gt;
+
+&lt;p&gt;La tipografia di questo sito è dinamica: ad ogni refresh della pagina viene selezionato in modo del tutto casuale un font tra &lt;strong&gt;Inter&lt;/strong&gt;, &lt;strong&gt;Space Grotesk&lt;/strong&gt;, &lt;strong&gt;DM Sans&lt;/strong&gt;, &lt;strong&gt;JetBrains Mono&lt;/strong&gt; e &lt;strong&gt;Playfair Display&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Prova a ricaricare la pagina per vedere il font cambiare!&lt;/em&gt;&lt;/p&gt;
+</description>
+        <pubDate>Wed, 01 Jul 2026 10:00:00 +0200</pubDate>
+        <link>http://localhost:4000/articles/benvenuto/</link>
+        <guid isPermaLink="true">http://localhost:4000/articles/benvenuto/</guid>
+        
+          <category>Generale</category>
+        
+      </item>
+    
+  </channel>
+</rss>

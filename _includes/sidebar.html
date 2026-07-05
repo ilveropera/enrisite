@@ -1,0 +1,31 @@
+<nav class="tree-menu" aria-label="Navigazione Categorie">
+  {% comment %} Estrae una lista unica e ordinata delle categorie dai post della collection articles {% endcomment %}
+  {% assign categories = "" | split: "" %}
+  {% for article in site.articles %}
+    {% if article.category %}
+      {% assign categories = categories | push: article.category %}
+    {% endif %}
+  {% endfor %}
+  {% assign unique_categories = categories | uniq | sort %}
+
+  {% for cat in unique_categories %}
+    {% assign cat_slug = cat | slugify %}
+    <div class="tree-category" data-category="{{ cat_slug }}" id="cat-wrapper-{{ cat_slug }}">
+      <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-{{ cat_slug }}">
+        <span class="tree-icon">&gt;</span>
+        <span>{{ cat }}</span>
+      </button>
+      <div class="tree-article-list" id="cat-list-{{ cat_slug }}">
+        <ul class="tree-article-list-inner">
+          {% comment %} Filtra gli articoli per categoria ed esegue l'ordinamento cronologico decrescente (più recenti prima) {% endcomment %}
+          {% assign cat_articles = site.articles | where: "category", cat | sort: "date" | reverse %}
+          {% for art in cat_articles %}
+            <li class="tree-article-item {% if page.url == art.url %}active{% endif %}">
+              <a href="{{ art.url | relative_url }}" title="{{ art.title }}">{{ art.title }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  {% endfor %}
+</nav>

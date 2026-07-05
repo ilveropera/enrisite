@@ -1,0 +1,15 @@
+title: enri
+description: "Portfolio di enri costruito con Jekyll"
+url: "http://localhost:4000"
+
+collections:
+  articles:
+    output: true
+    permalink: /articles/:title/
+
+defaults:
+  - scope:
+      path: ""
+      type: "articles"
+    values:
+      layout: "default"
