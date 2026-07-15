@@ -242,3 +242,35 @@ bundle exec jekyll serve
 ```
 
 poi apri **http://localhost:4000** — il sito si aggiorna automaticamente quando salvi un file.
+
+---
+
+## integrazione feed mastodon e rss
+
+il feed mastodon sulla homepage è caricato in modo **completamente dinamico via client-side javascript** dal browser dell'utente (senza bisogno di ri-compilare il sito statico jekyll).
+
+1. **funzionamento**: all'avvio della pagina, uno script in `assets/js/main.js` invia una richiesta all'api pubblica dell'istanza mastodon `https://puntarella.party` per estrarre gli ultimi 20 stati pubblici di `@enri`.
+2. **rendering**: il browser formatta il testo ed esegue il parsing degli allegati:
+   - le immagini statiche vengono visualizzate inline.
+   - i video e le gif animate (GIFV) vengono incorporati in un player `<video>` nativo (con autoplay e loop per le gif).
+   - i link a peertube (sia nel formato `/w/` che `/videos/watch/`) vengono rilevati e convertiti automaticamente in un player `iframe` responsive incorporato direttamente nella card del post.
+3. **feed rss**: nella sezione **info** del menu laterale è fornito il link diretto al feed rss nativo di mastodon: `https://puntarella.party/@enri.rss`. questo feed xml standard può essere usato da lettori di feed, aggregatori esterni o per automatizzare notifiche.
+
+---
+
+## ordinamento fisso delle categorie nel menu
+
+per impostazione predefinita, le categorie estratte dal frontmatter degli articoli vengono ordinate alfabeticamente. se vuoi definire un **ordine fisso e personalizzato** per le sezioni del menu:
+
+1. apri il file di configurazione del progetto `_config.yml`.
+2. aggiungi o modifica la lista `category_order` inserendo i nomi esatti delle tue categorie nell'ordine desiderato:
+
+```yaml
+category_order:
+  - "Generale"
+  - "documenti"
+  - "video"
+  - "fotografia"
+```
+
+*se un articolo ha una categoria non inclusa in questa lista, essa verrà automaticamente aggiunta in fondo al menu.*

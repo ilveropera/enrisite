@@ -20,6 +20,17 @@ body {
   color: var(--text-color);
   height: 100vh;
   overflow: hidden;
+}
+
+/* Applica il minuscolo solo a elementi di navigazione e controlli */
+.site-header,
+.sidebar,
+.pdf-controls,
+.pdf-footer,
+.mastodon-date,
+.article-meta,
+.feed-loading,
+.sidebar-close {
   text-transform: lowercase;
 }
 
@@ -32,8 +43,7 @@ a {
 }
 
 a:hover {
-  background-color: var(--acid-color);
-  color: #000000;
+  text-decoration-thickness: 4px;
 }
 
 /* Header: logo a sinistra, hamburger a destra */
@@ -136,7 +146,7 @@ a:hover {
   flex-direction: column;
 }
 
-.tree-folder-btn {
+.tree-folder-btn, .info-btn {
   display: flex;
   align-items: center;
   width: 100%;
@@ -152,8 +162,16 @@ a:hover {
   gap: 0.5rem;
 }
 
-.tree-folder-btn:hover {
+.tree-folder-btn:hover, .info-btn:hover {
   text-decoration: underline;
+}
+
+.info-btn.active-link {
+  background-color: var(--acid-color);
+  color: #000000 !important;
+  font-weight: bold;
+  padding: 0.2rem 0.4rem;
+  text-decoration: none;
 }
 
 .tree-icon {
@@ -493,7 +511,7 @@ a:hover {
     align-items: center;
   }
 
-  .tree-folder-btn {
+  .tree-folder-btn, .info-btn {
     justify-content: center;
     font-size: 1.3rem;
     padding: 0.8rem;

@@ -1,14 +1,46 @@
 <nav class="tree-menu" aria-label="Navigazione Categorie">
-  {% comment %} Estrae una lista unica e ordinata delle categorie dai post della collection articles {% endcomment %}
+  {% comment %} Estrae una lista unica delle categorie dai post della collection articles {% endcomment %}
   {% assign categories = "" | split: "" %}
   {% for article in site.articles %}
     {% if article.category %}
       {% assign categories = categories | push: article.category %}
     {% endif %}
   {% endfor %}
-  {% assign unique_categories = categories | uniq | sort %}
+  {% assign unique_categories = categories | uniq %}
 
-  {% for cat in unique_categories %}
+  {% comment %} Determina l'ordine delle categorie basato su site.category_order, se definito {% endcomment %}
+  {% assign ordered_categories = "" | split: "" %}
+  {% if site.category_order %}
+    {% for ord_cat in site.category_order %}
+      {% comment %} Verifica se questa categoria ordinata esiste effettivamente tra i post {% endcomment %}
+      {% for cat in unique_categories %}
+        {% assign cat_down = cat | downcase %}
+        {% assign ord_cat_down = ord_cat | downcase %}
+        {% if cat_down == ord_cat_down %}
+          {% assign ordered_categories = ordered_categories | push: cat %}
+        {% endif %}
+      {% endfor %}
+    {% endfor %}
+    
+    {% comment %} Aggiungi le categorie rimanenti che non sono presenti in site.category_order {% endcomment %}
+    {% for cat in unique_categories %}
+      {% assign found = false %}
+      {% for ord_cat in site.category_order %}
+        {% assign cat_down = cat | downcase %}
+        {% assign ord_cat_down = ord_cat | downcase %}
+        {% if cat_down == ord_cat_down %}
+          {% assign found = true %}
+        {% endif %}
+      {% endfor %}
+      {% if found == false %}
+        {% assign ordered_categories = ordered_categories | push: cat %}
+      {% endif %}
+    {% endfor %}
+  {% else %}
+    {% assign ordered_categories = unique_categories | sort %}
+  {% endif %}
+
+  {% for cat in ordered_categories %}
     {% assign cat_slug = cat | slugify %}
     <div class="tree-category" data-category="{{ cat_slug }}" id="cat-wrapper-{{ cat_slug }}">
       <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-{{ cat_slug }}">
@@ -17,7 +49,6 @@
       </button>
       <div class="tree-article-list" id="cat-list-{{ cat_slug }}">
         <ul class="tree-article-list-inner">
-          {% comment %} Filtra gli articoli per categoria ed esegue l'ordinamento cronologico decrescente (più recenti prima) {% endcomment %}
           {% assign cat_articles = site.articles | where: "category", cat | sort: "date" | reverse %}
           {% for art in cat_articles %}
             <li class="tree-article-item {% if page.url == art.url %}active{% endif %}">
@@ -28,4 +59,12 @@
       </div>
     </div>
   {% endfor %}
+
+  <!-- Voce Info fissa al fondo, senza freccia > -->
+  <div class="tree-category info-category">
+    <a href="{{ '/info/' | relative_url }}" class="info-btn {% if page.url == '/info/' %}active-link{% endif %}" style="text-decoration: none;">
+      <span class="tree-icon" style="visibility: hidden;">&gt;</span>
+      <span>info</span>
+    </a>
+  </div>
 </nav>

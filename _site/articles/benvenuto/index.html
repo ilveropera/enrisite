@@ -6,28 +6,42 @@
   <title>Benvenuto nel mio nuovo Portfolio - enri</title>
   <meta name="description" content="Portfolio di enri costruito con Jekyll">
 
-  <!-- Importazione Google Fonts: 5 Font Nerd Monospace + PT Serif per lo stile articolo NERO -->
+  <!-- Importazione Google Fonts: 5 Font Nerd Monospace + Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inconsolata:wght@200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&family=Inconsolata:wght@200..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Share+Tech+Mono&family=Space+Grotesk:wght@300..700&family=VT323&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="/assets/css/style.css">
 
-  <!-- Script di sessione: inizializza font nerd e colore acido per sessione -->
+  <!-- Script di sessione: inizializza font e colore acido per sessione/ricarica -->
   <script>
     (function() {
-      // 5 Font Nerd monospazio
-      const nerdFonts = ['Fira Code', 'Inconsolata', 'JetBrains Mono', 'Share Tech Mono', 'VT323'];
+      // Font disponibili per il sito
+      const nerdFonts = ['Fira Code', 'Inconsolata', 'JetBrains Mono', 'Share Tech Mono', 'VT323', 'Space Grotesk'];
+      const acidColors = ['#ccff00', '#ff007f', '#00f6ff', '#ff5f00', '#ffff00'];
+
+      // Rileva se la pagina è stata ricaricata/aggiornata (Browser Refresh)
+      const isReload = (
+        performance.getEntriesByType("navigation")[0]?.type === "reload" ||
+        performance.navigation?.type === 1
+      );
+
+      if (isReload) {
+        // Cancella i valori salvati in sessione e lo stato del menu
+        sessionStorage.removeItem('site-session-font');
+        sessionStorage.removeItem('site-session-acid-color');
+        localStorage.removeItem('enri-open-categories');
+      }
+
       let selectedFont = sessionStorage.getItem('site-session-font');
       if (!selectedFont || !nerdFonts.includes(selectedFont)) {
         selectedFont = nerdFonts[Math.floor(Math.random() * nerdFonts.length)];
         sessionStorage.setItem('site-session-font', selectedFont);
       }
-      document.documentElement.style.setProperty('--site-font', `"${selectedFont}", monospace`);
-      console.info('font nerd di sessione applicato:', selectedFont);
+      const fallbackFont = selectedFont === 'Space Grotesk' ? 'sans-serif' : 'monospace';
+      document.documentElement.style.setProperty('--site-font', `"${selectedFont}", ${fallbackFont}`);
+      console.info('font di sessione applicato:', selectedFont);
 
-      // Colori acidi ad alto contrasto
-      const acidColors = ['#ccff00', '#ff007f', '#00f6ff', '#ff5f00', '#ffff00'];
       let selectedColor = sessionStorage.getItem('site-session-acid-color');
       if (!selectedColor || !acidColors.includes(selectedColor)) {
         selectedColor = acidColors[Math.floor(Math.random() * acidColors.length)];
@@ -67,6 +81,10 @@
   
 
   
+  
+  
+
+  
     
     <div class="tree-category" data-category="generale" id="cat-wrapper-generale">
       <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-generale">
@@ -75,7 +93,6 @@
       </button>
       <div class="tree-article-list" id="cat-list-generale">
         <ul class="tree-article-list-inner">
-          
           
           
             <li class="tree-article-item active">
@@ -96,28 +113,8 @@
         <ul class="tree-article-list-inner">
           
           
-          
             <li class="tree-article-item ">
               <a href="/articles/documento-pdf/" title="circo un immaginario di città ospitale">circo un immaginario di città ospitale</a>
-            </li>
-          
-        </ul>
-      </div>
-    </div>
-  
-    
-    <div class="tree-category" data-category="fotografia" id="cat-wrapper-fotografia">
-      <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-fotografia">
-        <span class="tree-icon">&gt;</span>
-        <span>fotografia</span>
-      </button>
-      <div class="tree-article-list" id="cat-list-fotografia">
-        <ul class="tree-article-list-inner">
-          
-          
-          
-            <li class="tree-article-item ">
-              <a href="/articles/immagine-post/" title="un post con immagine">un post con immagine</a>
             </li>
           
         </ul>
@@ -134,7 +131,6 @@
         <ul class="tree-article-list-inner">
           
           
-          
             <li class="tree-article-item ">
               <a href="/articles/video-peertube/" title="integrazione video peertube">integrazione video peertube</a>
             </li>
@@ -143,6 +139,32 @@
       </div>
     </div>
   
+    
+    <div class="tree-category" data-category="fotografia" id="cat-wrapper-fotografia">
+      <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-fotografia">
+        <span class="tree-icon">&gt;</span>
+        <span>fotografia</span>
+      </button>
+      <div class="tree-article-list" id="cat-list-fotografia">
+        <ul class="tree-article-list-inner">
+          
+          
+            <li class="tree-article-item ">
+              <a href="/articles/immagine-post/" title="un post con immagine">un post con immagine</a>
+            </li>
+          
+        </ul>
+      </div>
+    </div>
+  
+
+  <!-- Voce Info fissa al fondo, senza freccia > -->
+  <div class="tree-category info-category">
+    <a href="/info/" class="info-btn " style="text-decoration: none;">
+      <span class="tree-icon" style="visibility: hidden;">&gt;</span>
+      <span>info</span>
+    </a>
+  </div>
 </nav>
 
     </aside>

@@ -2,6 +2,12 @@ title: enri
 description: "Portfolio di enri costruito con Jekyll"
 url: "http://localhost:4000"
 
+category_order:
+  - "Generale"
+  - "documenti"
+  - "video"
+  - "fotografia"
+
 collections:
   articles:
     output: true

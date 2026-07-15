@@ -145,22 +145,27 @@ function loadMastodonFeed() {
         }
 
         // Controlla se nel contenuto c'è un link PeerTube
-        const peertubeMatch = content.match(/https?:\/\/[^"<\s]+\/w\/[A-Za-z0-9_-]+/);
+        const peertubeMatch = content.match(/https?:\/\/[^"<\s]+\/(?:w|videos\/watch)\/[A-Za-z0-9_-]+/);
 
         if (peertubeMatch) {
           // Embed PeerTube
           const mediaEl = document.createElement('div');
           mediaEl.className = 'mastodon-media';
           const videoUrl = peertubeMatch[0];
-          // Converti URL /w/ in URL /videos/embed/
-          const embedUrl = videoUrl.replace(/\/w\//, '/videos/embed/');
+          // Converti URL /w/ o /videos/watch/ in URL /videos/embed/
+          let embedUrl = videoUrl;
+          if (videoUrl.includes('/w/')) {
+            embedUrl = videoUrl.replace(/\/w\//, '/videos/embed/');
+          } else if (videoUrl.includes('/videos/watch/')) {
+            embedUrl = videoUrl.replace(/\/videos\/watch\//, '/videos/embed/');
+          }
           mediaEl.innerHTML = `
             <div class="peertube-embed">
               <iframe src="${embedUrl}" frameborder="0" allowfullscreen sandbox="allow-same-origin allow-scripts allow-popups"></iframe>
             </div>`;
           postEl.appendChild(mediaEl);
         } else if (status.media_attachments && status.media_attachments.length > 0) {
-          // Immagini allegate
+          // Allegati media Mastodon (Immagini, GIF, Video)
           const mediaEl = document.createElement('div');
           mediaEl.className = 'mastodon-media';
           status.media_attachments.forEach(att => {
@@ -170,6 +175,21 @@ function loadMastodonFeed() {
               img.alt = att.description || '';
               img.loading = 'lazy';
               mediaEl.appendChild(img);
+            } else if (att.type === 'gifv' || att.type === 'video') {
+              const video = document.createElement('video');
+              video.src = att.url;
+              video.poster = att.preview_url || '';
+              video.autoplay = att.type === 'gifv';
+              video.loop = att.type === 'gifv';
+              video.muted = true;
+              video.playsInline = true;
+              video.controls = att.type === 'video';
+              video.style.maxWidth = '100%';
+              video.style.height = 'auto';
+              video.style.display = 'block';
+              video.style.marginTop = '0.75rem';
+              video.style.border = '2px solid var(--border-color)';
+              mediaEl.appendChild(video);
             }
           });
           postEl.appendChild(mediaEl);
@@ -321,5 +341,21 @@ function initPDFViewers() {
           <a href="${url}" download style="margin-top:0.5rem; display:inline-block;">scarica pdf</a>
         </div>`;
     });
+  });
+
+  // Navigazione da tastiera per PDF in fullscreen
+  document.addEventListener('keydown', (e) => {
+    const activeViewer = document.fullscreenElement || document.webkitFullscreenElement;
+    if (activeViewer && activeViewer.classList.contains('pdf-viewer')) {
+      if (e.key === 'ArrowRight' || e.key === 'PageDown') {
+        e.preventDefault();
+        const nextBtn = activeViewer.querySelector('.pdf-next-btn');
+        if (nextBtn && !nextBtn.disabled) nextBtn.click();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        e.preventDefault();
+        const prevBtn = activeViewer.querySelector('.pdf-prev-btn');
+        if (prevBtn && !prevBtn.disabled) prevBtn.click();
+      }
+    }
   });
 }
