@@ -144,8 +144,9 @@ function loadMastodonFeed() {
           postEl.appendChild(textEl);
         }
 
-        // Controlla se nel contenuto c'è un link PeerTube
+        // Controlla se nel contenuto c'è un link PeerTube o YouTube
         const peertubeMatch = content.match(/https?:\/\/[^"<\s]+\/(?:w|videos\/watch)\/[A-Za-z0-9_-]+/);
+        const youtubeMatch = content.match(/https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([A-Za-z0-9_-]+)/);
 
         if (peertubeMatch) {
           // Embed PeerTube
@@ -161,7 +162,18 @@ function loadMastodonFeed() {
           }
           mediaEl.innerHTML = `
             <div class="peertube-embed">
-              <iframe src="${embedUrl}" frameborder="0" allowfullscreen sandbox="allow-same-origin allow-scripts allow-popups"></iframe>
+              <iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>`;
+          postEl.appendChild(mediaEl);
+        } else if (youtubeMatch) {
+          // Embed YouTube
+          const mediaEl = document.createElement('div');
+          mediaEl.className = 'mastodon-media';
+          const videoId = youtubeMatch[1];
+          const embedUrl = `https://www.youtube.com/embed/${videoId}`;
+          mediaEl.innerHTML = `
+            <div class="peertube-embed">
+              <iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
             </div>`;
           postEl.appendChild(mediaEl);
         } else if (status.media_attachments && status.media_attachments.length > 0) {

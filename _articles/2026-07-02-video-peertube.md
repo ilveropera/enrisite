@@ -8,5 +8,5 @@ questo post mostra l'integrazione di un video peertube ospitato su tubocatodico.
 il video è incorporato utilizzando la classe reattiva per il corretto adattamento a tutti gli schermi (incluso mobile).
 
 <div class="peertube-embed">
-  <iframe src="https://tubocatodico.bida.im/videos/embed/ofj9oxHkBCXhjQoLxweRg2" frameborder="0" allowfullscreen="" sandbox="allow-same-origin allow-scripts allow-popups"></iframe>
+  <iframe src="https://tubocatodico.bida.im/videos/embed/ofj9oxHkBCXhjQoLxweRg2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>

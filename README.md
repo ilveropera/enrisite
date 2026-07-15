@@ -118,9 +118,9 @@ testo dopo la foto.
 
 ---
 
-### 3. articolo con video peertube
+### 3. articolo con video peertube o youtube
 
-per incorporare un video peertube, copia l'url del video e usa questo html:
+per incorporare un video peertube o youtube, usa questo codice html:
 
 ```markdown
 ---
@@ -131,18 +131,24 @@ date: 2026-09-01 12:00:00 +0200
 ecco il video del progetto.
 
 <div class="peertube-embed">
-  <iframe src="https://ISTANZA/videos/embed/ID-VIDEO" 
-          frameborder="0" allowfullscreen 
-          sandbox="allow-same-origin allow-scripts allow-popups"></iframe>
+  <iframe src="URL-EMBED-DEL-VIDEO" 
+          frameborder="0" 
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          allowfullscreen></iframe>
 </div>
 
 testo dopo il video.
 ```
 
-**come trovare l'url embed:**
-1. vai al video su peertube
-2. l'url sarà tipo `https://tubocatodico.bida.im/w/ofj9oxHkBCXhjQoLxweRg2`
-3. sostituisci `/w/` con `/videos/embed/` → `https://tubocatodico.bida.im/videos/embed/ofj9oxHkBCXhjQoLxweRg2`
+**come ricavare l'url embed:**
+
+- **peertube**:
+  1. l'url standard del video sarà tipo `https://tubocatodico.bida.im/w/ofj9oxHkBCXhjQoLxweRg2`
+  2. sostituisci `/w/` con `/videos/embed/` → `https://tubocatodico.bida.im/videos/embed/ofj9oxHkBCXhjQoLxweRg2`
+  
+- **youtube**:
+  1. l'url standard del video sarà tipo `https://www.youtube.com/watch?v=VIDEO_ID` (es. `https://www.youtube.com/watch?v=dQw4w9WgXcQ`)
+  2. sostituisci l'intero indirizzo per puntare all'embed → `https://www.youtube.com/embed/VIDEO_ID` (es. `https://www.youtube.com/embed/dQw4w9WgXcQ`)
 
 ---
 
