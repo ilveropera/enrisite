@@ -294,8 +294,9 @@ a:hover {
   border: 2px solid var(--border-color);
 }
 
-/* PeerTube video (Web 1.0) */
-.peertube-embed {
+/* PeerTube, Vimeo, YouTube video embed responsive */
+.peertube-embed,
+.video-embed {
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
@@ -304,12 +305,14 @@ a:hover {
   border: 2px solid var(--border-color);
 }
 
-.peertube-embed iframe {
+.peertube-embed iframe,
+.video-embed iframe {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  border: 0;
 }
 
 /* ========== PDF.js Viewer (singola pagina, fullscreen) ========== */
@@ -433,8 +436,99 @@ a:hover {
   border: 2px solid var(--border-color);
 }
 
-.mastodon-media .peertube-embed {
+.mastodon-media .peertube-embed,
+.mastodon-media .video-embed {
   margin-top: 0.75rem;
+}
+
+/* Video Facade Preview (alleggerimento feed video) */
+.video-facade-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  height: 0;
+  background-color: #000000;
+  background-size: cover;
+  background-position: center;
+  border: 2px solid var(--border-color);
+  cursor: pointer;
+  overflow: hidden;
+  margin-top: 0.75rem;
+}
+
+.video-facade-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.video-facade-container:hover .video-facade-overlay {
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.video-play-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: var(--acid-color);
+  border: 2px solid #000000;
+  color: #000000;
+  font-size: 1.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.video-facade-container:hover .video-play-btn {
+  transform: scale(1.1);
+}
+
+.play-icon {
+  margin-left: 3px;
+  line-height: 1;
+}
+
+.video-provider-badge {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  background-color: #000000;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-family: inherit;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid var(--acid-color);
+  text-transform: lowercase;
+}
+
+/* Link homepage "altri pensieri >" posizionato in basso a destra */
+.home-more-link-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.home-more-link {
+  font-size: 1rem;
+  font-weight: bold;
+  color: var(--text-color);
+  text-decoration: underline;
+  text-decoration-color: var(--acid-color);
+  text-decoration-thickness: 3px;
+}
+
+.home-more-link:hover {
+  text-decoration-thickness: 4px;
 }
 
 /* ========== Responsive & Mobile layout ========== */

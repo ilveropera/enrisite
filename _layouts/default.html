@@ -6,6 +6,44 @@
   <title>{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
   <meta name="description" content="{{ page.description | default: site.description }}">
 
+  <!-- Meta Tag Open Graph & Twitter Player / Social Media -->
+  <meta property="og:site_name" content="{{ site.title }}">
+  <meta property="og:title" content="{% if page.title %}{{ page.title }} - {{ site.title }}{% else %}{{ site.title }}{% endif %}">
+  <meta property="og:description" content="{{ page.description | default: site.description }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+
+  {% assign page_video = page.video_url | default: page.vimeo_url | default: page.peertube_url %}
+  {% if page_video %}
+    {% if page_video contains "vimeo.com" %}
+      {% assign v_id = page_video | split: "vimeo.com/" | last | split: "video/" | last | split: "?" | first %}
+      {% assign page_embed = "https://player.vimeo.com/video/" | append: v_id %}
+    {% elsif page_video contains "/w/" %}
+      {% assign page_embed = page_video | replace: "/w/", "/videos/embed/" %}
+    {% elsif page_video contains "/videos/watch/" %}
+      {% assign page_embed = page_video | replace: "/videos/watch/", "/videos/embed/" %}
+    {% else %}
+      {% assign page_embed = page_video %}
+    {% endif %}
+    <meta property="og:type" content="video.other">
+    <meta property="og:video" content="{{ page_embed }}">
+    <meta property="og:video:secure_url" content="{{ page_embed }}">
+    <meta property="og:video:type" content="text/html">
+    <meta property="og:video:width" content="640">
+    <meta property="og:video:height" content="360">
+    <meta name="twitter:card" content="player">
+    <meta name="twitter:player" content="{{ page_embed }}">
+    <meta name="twitter:player:width" content="640">
+    <meta name="twitter:player:height" content="360">
+  {% elsif page.image %}
+    <meta property="og:type" content="article">
+    <meta property="og:image" content="{{ page.image | absolute_url }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="{{ page.image | absolute_url }}">
+  {% else %}
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+  {% endif %}
+
   <!-- Importazione Google Fonts: 5 Font Nerd Monospace + Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -78,25 +116,7 @@
     </aside>
 
     <main class="main-content" id="main-content">
-      {% if page.collection == 'articles' %}
-        <!-- Articolo formattato (stile NERO Editions) -->
-        <article class="article-container">
-          <header class="article-header">
-            <h1 class="article-title">{{ page.title }}</h1>
-            <div class="article-meta">
-              <time class="article-date" datetime="{{ page.date | date_to_xmlschema }}">
-                {{ page.date | date: "%d %b %Y" }}
-              </time>
-            </div>
-          </header>
-          <section class="article-body">
-            {{ content }}
-          </section>
-        </article>
-      {% else %}
-        <!-- Pagine standard / Home page -->
-        {{ content }}
-      {% endif %}
+      {{ content }}
     </main>
   </div>
 

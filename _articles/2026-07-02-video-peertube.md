@@ -2,6 +2,7 @@
 title: "integrazione video peertube"
 category: "video"
 date: 2026-07-02 14:30:00 +0200
+date_display: "luglio 2026"
 ---
 questo post mostra l'integrazione di un video peertube ospitato su tubocatodico.bida.im.
 

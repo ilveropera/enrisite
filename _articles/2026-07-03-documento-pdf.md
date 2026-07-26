@@ -2,6 +2,7 @@
 title: "circo un immaginario di città ospitale"
 category: "documenti"
 date: 2026-07-03 11:20:00 +0200
+date_display: "2021-2026"
 ---
 questo documento descrive il progetto circo, un immaginario di città ospitale.
 

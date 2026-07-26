@@ -1,0 +1,42 @@
+{% comment %}
+  Componente per incorporare video responsive (PeerTube, Vimeo, YouTube inclusi i live)
+  Uso: {% include video-player.html url="URL_DEL_VIDEO" %}
+{% endcomment %}
+{% assign video_url = include.url | default: include.src %}
+{% assign embed_url = video_url %}
+
+{% if video_url contains "vimeo.com" %}
+  {% assign vimeo_id = video_url | split: "vimeo.com/" | last | split: "video/" | last | split: "?" | first | split: "/" | last %}
+  {% assign embed_url = "https://player.vimeo.com/video/" | append: vimeo_id %}
+{% elsif video_url contains "/w/" %}
+  {% assign embed_url = video_url | replace: "/w/", "/videos/embed/" %}
+{% elsif video_url contains "/videos/watch/" %}
+  {% assign embed_url = video_url | replace: "/videos/watch/", "/videos/embed/" %}
+{% elsif video_url contains "watch?v=" %}
+  {% assign yt_id = video_url | split: "watch?v=" | last | split: "&" | first %}
+  {% assign embed_url = "https://www.youtube.com/embed/" | append: yt_id %}
+{% elsif video_url contains "/live/" %}
+  {% assign yt_id = video_url | split: "/live/" | last | split: "?" | first | split: "/" | first %}
+  {% assign embed_url = "https://www.youtube.com/embed/" | append: yt_id %}
+{% elsif video_url contains "youtu.be/" %}
+  {% assign yt_id = video_url | split: "youtu.be/" | last | split: "?" | first %}
+  {% assign embed_url = "https://www.youtube.com/embed/" | append: yt_id %}
+{% endif %}
+
+{% if embed_url contains "grey" %}
+  {% assign embed_url = embed_url | replace: "grey", "gray" %}
+{% endif %}
+
+{% if video_url contains "/w/" or video_url contains "/videos/" %}
+  {% unless embed_url contains "color=" %}
+    {% if embed_url contains "?" %}
+      {% assign embed_url = embed_url | append: "&color=808080" %}
+    {% else %}
+      {% assign embed_url = embed_url | append: "?color=808080" %}
+    {% endif %}
+  {% endunless %}
+{% endif %}
+
+<div class="video-embed">
+  <iframe src="{{ embed_url }}" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>

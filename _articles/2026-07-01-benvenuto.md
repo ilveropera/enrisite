@@ -2,6 +2,7 @@
 title: "Benvenuto nel mio nuovo Portfolio"
 category: "Generale"
 date: 2026-07-01 10:00:00 +0200
+date_display: "01/07/2026"
 mastodon: true
 ---
 Benvenuto sul mio nuovo portfolio personale minimalista!

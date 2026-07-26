@@ -99,6 +99,7 @@ function initCategoryTree() {
 
 /**
  * Carica dinamicamente i post da Mastodon via API pubblica.
+ * Renderizza direttamente gli iframe dei video (Vimeo, PeerTube, YouTube).
  */
 function loadMastodonFeed() {
   const container = document.getElementById('mastodon-feed');
@@ -132,10 +133,10 @@ function loadMastodonFeed() {
 
         const dateEl = document.createElement('div');
         dateEl.className = 'mastodon-date';
-        dateEl.innerHTML = `<a href="${statusUrl}" target="_blank" rel="noopener">${dateStr}</a>`;
+        dateEl.innerHTML = `<a href="${statusUrl}" target="_blank" rel="noopener noreferrer">${dateStr}</a>`;
         postEl.appendChild(dateEl);
 
-        // Contenuto testuale (HTML sanitizzato dal server)
+        // Contenuto testuale
         const content = status.content || '';
         if (content) {
           const textEl = document.createElement('div');
@@ -144,40 +145,20 @@ function loadMastodonFeed() {
           postEl.appendChild(textEl);
         }
 
-        // Controlla se nel contenuto c'è un link PeerTube o YouTube
-        const peertubeMatch = content.match(/https?:\/\/[^"<\s]+\/(?:w|videos\/watch)\/[A-Za-z0-9_-]+/);
-        const youtubeMatch = content.match(/https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([A-Za-z0-9_-]+)/);
+        // Estrazione link video (Vimeo, PeerTube, YouTube)
+        const embedUrl = extractVideoEmbedUrl(status);
 
-        if (peertubeMatch) {
-          // Embed PeerTube
+        if (embedUrl) {
           const mediaEl = document.createElement('div');
           mediaEl.className = 'mastodon-media';
-          const videoUrl = peertubeMatch[0];
-          // Converti URL /w/ o /videos/watch/ in URL /videos/embed/
-          let embedUrl = videoUrl;
-          if (videoUrl.includes('/w/')) {
-            embedUrl = videoUrl.replace(/\/w\//, '/videos/embed/');
-          } else if (videoUrl.includes('/videos/watch/')) {
-            embedUrl = videoUrl.replace(/\/videos\/watch\//, '/videos/embed/');
-          }
           mediaEl.innerHTML = `
-            <div class="peertube-embed">
-              <iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>`;
-          postEl.appendChild(mediaEl);
-        } else if (youtubeMatch) {
-          // Embed YouTube
-          const mediaEl = document.createElement('div');
-          mediaEl.className = 'mastodon-media';
-          const videoId = youtubeMatch[1];
-          const embedUrl = `https://www.youtube.com/embed/${videoId}`;
-          mediaEl.innerHTML = `
-            <div class="peertube-embed">
-              <iframe src="${embedUrl}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-            </div>`;
+            <div class="video-embed peertube-embed">
+              <iframe src="${embedUrl}" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+            </div>
+          `;
           postEl.appendChild(mediaEl);
         } else if (status.media_attachments && status.media_attachments.length > 0) {
-          // Allegati media Mastodon (Immagini, GIF, Video)
+          // Allegati media Mastodon (Immagini, GIF, Video diretti)
           const mediaEl = document.createElement('div');
           mediaEl.className = 'mastodon-media';
           status.media_attachments.forEach(att => {
@@ -214,6 +195,81 @@ function loadMastodonFeed() {
       console.error('Errore caricamento feed Mastodon:', err);
       container.innerHTML = '<p class="feed-loading">impossibile caricare il feed.</p>';
     });
+}
+
+/**
+ * Estrae l'URL di embed per video Vimeo, PeerTube o YouTube (inclusi YouTube Live) da uno stato Mastodon.
+ */
+function extractVideoEmbedUrl(status) {
+  if (!status) return null;
+
+  // 1. Controlla prima il campo status.card se presente
+  if (status.card) {
+    if (status.card.embed_url) {
+      const embed = resolveVideoEmbed(status.card.embed_url);
+      if (embed) return embed;
+    }
+    if (status.card.url) {
+      const embed = resolveVideoEmbed(status.card.url);
+      if (embed) return embed;
+    }
+    if (status.card.html) {
+      const iframeMatch = status.card.html.match(/src=["']([^"']+)["']/i);
+      if (iframeMatch) {
+        const embed = resolveVideoEmbed(iframeMatch[1]);
+        if (embed) return embed;
+      }
+    }
+  }
+
+  // 2. Analizza gli elementi <a> presenti nel contenuto HTML
+  if (status.content) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = status.content;
+    const links = tmp.querySelectorAll('a');
+    for (let a of links) {
+      const embed = resolveVideoEmbed(a.href);
+      if (embed) return embed;
+    }
+
+    // Fallback su ricerca grezza nel testo HTML
+    const rawMatch = resolveVideoEmbed(status.content);
+    if (rawMatch) return rawMatch;
+  }
+
+  return null;
+}
+
+/**
+ * Converte qualsiasi URL Vimeo, PeerTube o YouTube (inclusi i live) nel corrispettivo URL di embed iframe.
+ */
+function resolveVideoEmbed(url) {
+  if (!url || typeof url !== 'string') return null;
+
+  // 1. Vimeo (supporta vimeo.com/ID, player.vimeo.com/video/ID, canali, live, ecc.)
+  const vimeoMatch = url.match(/vimeo\.com\/(?:[a-zA-Z0-9_\/]*\/)?([0-9]{6,12})/i);
+  if (vimeoMatch && vimeoMatch[1]) {
+    return `https://player.vimeo.com/video/${vimeoMatch[1]}`;
+  }
+
+  // 2. PeerTube (supporta /w/, /videos/watch/, /videos/embed/)
+  const ptMatch = url.match(/^(https?:\/\/[^\/]+)\/(?:w|videos\/watch|videos\/embed)\/([A-Za-z0-9_-]+)/i);
+  if (ptMatch) {
+    let embed = `${ptMatch[1]}/videos/embed/${ptMatch[2]}`;
+    embed = embed.replace(/grey/gi, 'gray');
+    if (!embed.includes('color=')) {
+      embed += (embed.includes('?') ? '&' : '?') + 'color=808080';
+    }
+    return embed;
+  }
+
+  // 3. YouTube (supporta watch?v=, embed/, youtu.be/ e live/)
+  const ytMatch = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|live\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/i);
+  if (ytMatch && ytMatch[1]) {
+    return `https://www.youtube.com/embed/${ytMatch[1]}`;
+  }
+
+  return null;
 }
 
 /**

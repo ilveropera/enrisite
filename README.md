@@ -45,6 +45,7 @@ ogni file `.md` inizia con un blocco `---` che contiene i metadati:
 title: "titolo del mio articolo"
 category: "nome-sezione"
 date: 2026-08-15 10:00:00 +0200
+date_display: "marzo 2026"
 ---
 ```
 
@@ -53,6 +54,7 @@ date: 2026-08-15 10:00:00 +0200
 | `title` | il titolo mostrato nel menu e nella pagina | sì |
 | `category` | la **sezione** del menu dove appare l'articolo | sì |
 | `date` | data e ora, usata per l'ordinamento | sì |
+| `date_display` | testo personalizzato per la data (es. "11/01/2003", "marzo 2026", "2007-2009") | no |
 
 ### come funzionano le sezioni (categorie)
 
@@ -229,17 +231,87 @@ testo introduttivo del progetto.
 
 ---
 
+## come aggiungere nuove pagine
+
+oltre agli articoli in `_articles/`, puoi creare pagine statiche indipendenti (come la pagina `info.md`).
+
+### 1. pagina standard visibile nel menu (tipo "info")
+
+1. crea un file `.md` nella radice del sito (es. `contatti.md`).
+2. imposta il frontmatter con `layout: default`, `title` e `permalink`:
+
+```markdown
+---
+layout: default
+title: "contatti"
+permalink: /contatti/
+---
+<div class="article-container">
+  <header class="article-header">
+    <h1 class="article-title">contatti</h1>
+  </header>
+  <section class="article-body">
+    <p>scrivimi a esempio@dominio.it</p>
+  </section>
+</div>
+```
+
+3. **aggiungere il link nel menu di navigazione**:
+   apri il file `_includes/navigation.html` (o `_includes/sidebar.html`) e aggiungi il blocco del link in fondo al menu:
+
+```html
+<div class="tree-category info-category">
+  <a href="{{ '/contatti/' | relative_url }}" class="info-btn {% if page.url == '/contatti/' %}active-link{% endif %}" style="text-decoration: none;">
+    <span class="tree-icon" style="visibility: hidden;">&gt;</span>
+    <span>contatti</span>
+  </a>
+</div>
+```
+
+---
+
+### 2. pagina web semplice SENZA link nel menu (pagina "nascosta")
+
+se vuoi pubblicare una pagina raggiungibile solo tramite indirizzo diretto (URL), senza che appaia nel menu laterale:
+
+1. crea un file `.md` nella radice del progetto (es. `progetto-segreto.md`).
+2. assegna un `permalink` dedicato:
+
+```markdown
+---
+layout: default
+title: "progetto riservato"
+permalink: /progetto-segreto/
+---
+<div class="article-container">
+  <header class="article-header">
+    <h1 class="article-title">progetto riservato</h1>
+  </header>
+  <section class="article-body">
+    <p>questa è una pagina nascosta non presente nel menu di navigazione.</p>
+    <p>è accessibile unicamente conoscendo il link diretto: <code>/progetto-segreto/</code>.</p>
+  </section>
+</div>
+```
+
+3. **NON** modificare `_includes/navigation.html`: in questo modo la pagina rimarrà nascosta dalla navigazione ma sarà perfettamente visibile ed online all'indirizzo `/progetto-segreto/`.
+
+---
+
 ## cheat sheet rapido
 
 | cosa vuoi fare | come |
 |----------------|------|
 | aggiungere un articolo | crea un `.md` in `_articles/` |
-| creare una nuova sezione | scrivi un nuovo `category:` nel frontmatter |
-| cambiare l'ordine | modifica la `date:` nel frontmatter |
+| personalizzare la data visualizzata | usa `date_display: "testo"` nel frontmatter dell'articolo |
+| creare una nuova sezione articoli | scrivi un nuovo `category:` nel frontmatter |
+| cambiare l'ordine articoli | modifica la `date:` nel frontmatter |
 | spostare un articolo | cambia `category:` |
+| aggiungere una pagina fissa con menu | crea `nome.md` nella radice + aggiungi link in `_includes/navigation.html` |
+| creare una pagina nascosta (senza menu) | crea `nome.md` nella radice con `permalink: /nome/` SENZA aggiungerla al menu |
 | aggiungere un'immagine | mettila in `assets/images/`, usala con `![](/assets/images/file.jpg)` |
 | aggiungere un pdf | mettilo in `assets/docs/`, copia il blocco html del viewer |
-| aggiungere un video | copia il blocco `peertube-embed` con l'url corretto |
+| aggiungere un video | usa `{% include video-player.html url="URL_VIDEO" %}` oppure la classe `video-embed` |
 
 ## come vedere le modifiche
 
@@ -259,7 +331,7 @@ il feed mastodon sulla homepage è caricato in modo **completamente dinamico via
 2. **rendering**: il browser formatta il testo ed esegue il parsing degli allegati:
    - le immagini statiche vengono visualizzate inline.
    - i video e le gif animate (GIFV) vengono incorporati in un player `<video>` nativo (con autoplay e loop per le gif).
-   - i link a peertube (sia nel formato `/w/` che `/videos/watch/`) vengono rilevati e convertiti automaticamente in un player `iframe` responsive incorporato direttamente nella card del post.
+   - i link a peertube (sia nel formato `/w/` che `/videos/watch/`), vimeo e youtube vengono rilevati e convertiti automaticamente in un player `iframe` responsive incorporato direttamente nella card del post con `loading="lazy"`.
 3. **feed rss**: nella sezione **info** del menu laterale è fornito il link diretto al feed rss nativo di mastodon: `https://puntarella.party/@enri.rss`. questo feed xml standard può essere usato da lettori di feed, aggregatori esterni o per automatizzare notifiche.
 
 ---

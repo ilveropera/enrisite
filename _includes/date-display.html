@@ -1,0 +1,11 @@
+{% comment %}
+  Mostra la data personalizzata (date_display) se definita nel frontmatter,
+  altrimenti esegue il fallback sulla data formattata (page.date).
+{% endcomment %}
+{% if page.date_display %}
+  <span class="article-date">{{ page.date_display }}</span>
+{% elsif page.date %}
+  <time class="article-date" datetime="{{ page.date | date_to_xmlschema }}">
+    {{ page.date | date: "%d %b %Y" }}
+  </time>
+{% endif %}

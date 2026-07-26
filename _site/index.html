@@ -6,6 +6,18 @@
   <title>Home - enri</title>
   <meta name="description" content="Portfolio di enri costruito con Jekyll">
 
+  <!-- Meta Tag Open Graph & Twitter Player / Social Media -->
+  <meta property="og:site_name" content="enri">
+  <meta property="og:title" content="Home - enri">
+  <meta property="og:description" content="Portfolio di enri costruito con Jekyll">
+  <meta property="og:url" content="http://localhost:4000/">
+
+  
+  
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary">
+  
+
   <!-- Importazione Google Fonts: 5 Font Nerd Monospace + Space Grotesk -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -76,107 +88,109 @@
       <button class="sidebar-close" id="sidebar-close-btn" aria-label="chiudi menu">x</button>
       <nav class="tree-menu" aria-label="Navigazione Categorie">
   
-  
-  
-  
+
+
+
+
+
+
+
 
   
-  
-  
-
-  
-    
-    <div class="tree-category" data-category="generale" id="cat-wrapper-generale">
-      <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-generale">
-        <span class="tree-icon">&gt;</span>
-        <span>Generale</span>
-      </button>
-      <div class="tree-article-list" id="cat-list-generale">
-        <ul class="tree-article-list-inner">
-          
-          
-            <li class="tree-article-item ">
-              <a href="/articles/benvenuto/" title="Benvenuto nel mio nuovo Portfolio">Benvenuto nel mio nuovo Portfolio</a>
-            </li>
-          
-        </ul>
-      </div>
+  <div class="tree-category" data-category="generale" id="cat-wrapper-generale">
+    <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-generale">
+      <span class="tree-icon">&gt;</span>
+      <span>Generale</span>
+    </button>
+    <div class="tree-article-list" id="cat-list-generale">
+      <ul class="tree-article-list-inner">
+        
+        
+          <li class="tree-article-item ">
+            <a href="/articles/benvenuto/" title="Benvenuto nel mio nuovo Portfolio">Benvenuto nel mio nuovo Portfolio</a>
+          </li>
+        
+      </ul>
     </div>
-  
-    
-    <div class="tree-category" data-category="documenti" id="cat-wrapper-documenti">
-      <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-documenti">
-        <span class="tree-icon">&gt;</span>
-        <span>documenti</span>
-      </button>
-      <div class="tree-article-list" id="cat-list-documenti">
-        <ul class="tree-article-list-inner">
-          
-          
-            <li class="tree-article-item ">
-              <a href="/articles/documento-pdf/" title="circo un immaginario di città ospitale">circo un immaginario di città ospitale</a>
-            </li>
-          
-        </ul>
-      </div>
-    </div>
-  
-    
-    <div class="tree-category" data-category="video" id="cat-wrapper-video">
-      <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-video">
-        <span class="tree-icon">&gt;</span>
-        <span>video</span>
-      </button>
-      <div class="tree-article-list" id="cat-list-video">
-        <ul class="tree-article-list-inner">
-          
-          
-            <li class="tree-article-item ">
-              <a href="/articles/video-peertube/" title="integrazione video peertube">integrazione video peertube</a>
-            </li>
-          
-        </ul>
-      </div>
-    </div>
-  
-    
-    <div class="tree-category" data-category="fotografia" id="cat-wrapper-fotografia">
-      <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-fotografia">
-        <span class="tree-icon">&gt;</span>
-        <span>fotografia</span>
-      </button>
-      <div class="tree-article-list" id="cat-list-fotografia">
-        <ul class="tree-article-list-inner">
-          
-          
-            <li class="tree-article-item ">
-              <a href="/articles/immagine-post/" title="un post con immagine">un post con immagine</a>
-            </li>
-          
-        </ul>
-      </div>
-    </div>
-  
-
-  <!-- Voce Info fissa al fondo, senza freccia > -->
-  <div class="tree-category info-category">
-    <a href="/info/" class="info-btn " style="text-decoration: none;">
-      <span class="tree-icon" style="visibility: hidden;">&gt;</span>
-      <span>info</span>
-    </a>
   </div>
+
+  
+  <div class="tree-category" data-category="documenti" id="cat-wrapper-documenti">
+    <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-documenti">
+      <span class="tree-icon">&gt;</span>
+      <span>documenti</span>
+    </button>
+    <div class="tree-article-list" id="cat-list-documenti">
+      <ul class="tree-article-list-inner">
+        
+        
+          <li class="tree-article-item ">
+            <a href="/articles/documento-pdf/" title="circo un immaginario di città ospitale">circo un immaginario di città ospitale</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="tree-category" data-category="video" id="cat-wrapper-video">
+    <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-video">
+      <span class="tree-icon">&gt;</span>
+      <span>video</span>
+    </button>
+    <div class="tree-article-list" id="cat-list-video">
+      <ul class="tree-article-list-inner">
+        
+        
+          <li class="tree-article-item ">
+            <a href="/articles/video-peertube/" title="integrazione video peertube">integrazione video peertube</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+  <div class="tree-category" data-category="fotografia" id="cat-wrapper-fotografia">
+    <button class="tree-folder-btn" aria-expanded="false" aria-controls="cat-list-fotografia">
+      <span class="tree-icon">&gt;</span>
+      <span>fotografia</span>
+    </button>
+    <div class="tree-article-list" id="cat-list-fotografia">
+      <ul class="tree-article-list-inner">
+        
+        
+          <li class="tree-article-item ">
+            <a href="/articles/immagine-post/" title="un post con immagine">un post con immagine</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+
+<!-- Voce Info fissa al fondo, senza freccia > -->
+<div class="tree-category info-category">
+  <a href="/info/" class="info-btn " style="text-decoration: none;">
+    <span class="tree-icon" style="visibility: hidden;">&gt;</span>
+    <span>info</span>
+  </a>
+</div>
+
 </nav>
 
     </aside>
 
     <main class="main-content" id="main-content">
-      
-        <!-- Pagine standard / Home page -->
-        <div class="mastodon-feed-container" id="mastodon-feed">
+      <div class="mastodon-feed-container" id="mastodon-feed">
   <p class="feed-loading">caricamento...</p>
 </div>
 
-      
+<div class="home-more-link-container">
+  <a href="https://puntarella.party/@enri" target="_blank" rel="noopener noreferrer" class="home-more-link">altri pensieri &gt;</a>
+</div>
+
+
     </main>
   </div>
 
