@@ -1,6 +1,8 @@
 title: enrisite
 description: "enrisite"
-url: "http://localhost:4000"
+baseurl: "/enrisite"
+url: "https://ilveropera.github.io"
+#url: "http://localhost:4000"
 
 category_order:
   - "macro"
