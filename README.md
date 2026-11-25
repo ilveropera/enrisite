@@ -3,7 +3,7 @@
 ## struttura cartelle
 
 ```
-antygravity/
+SITO_jakyll/
 ├── _articles/          <-- i tuoi articoli vanno qui
 │   ├── 2026-07-01-benvenuto.md
 │   ├── 2026-07-02-video-peertube.md
@@ -33,6 +33,9 @@ esempio: `2026-08-15-progetto-casa.md`
 
 > [!IMPORTANT]
 > la data nel nome del file determina l'**ordine** nel menu: i più recenti appaiono prima.
+
+**non per forza!**
+i miei aticoli sono nella cartella articles e quindi non hanno bisogno della data nel nome, a differenza della cartella posts
 
 ---
 
@@ -113,6 +116,11 @@ ecco alcune foto del viaggio.
 testo dopo la foto.
 
 ![altra foto](/assets/images/altra-foto.jpg)
+
+carosello:
+
+{% include carousel.html id="carosello" images="/assets/images/foto1.jpg|/assets/images/foto2.jpg|/assets/images/foto3.jpg" caption="Lisbona, agosto 2026" %}
+
 ```
 
 > [!TIP]
@@ -166,70 +174,15 @@ date: 2026-09-05 16:00:00 +0200
 ---
 descrizione del documento.
 
-<div class="pdf-viewer" data-pdf-url="/assets/docs/nome-documento.pdf">
-  <div class="pdf-controls">
-    <button class="pdf-btn pdf-prev-btn" aria-label="pagina precedente">&lt;</button>
-    <button class="pdf-btn pdf-fullscreen-btn" aria-label="schermo intero">fullscreen</button>
-    <button class="pdf-btn pdf-next-btn" aria-label="pagina successiva">&gt;</button>
-  </div>
-  <div class="pdf-canvas-container">
-    <canvas class="pdf-canvas"></canvas>
-  </div>
-  <div class="pdf-footer">
-    <span class="pdf-page-info">pagina <span class="pdf-current-page">1</span> di <span class="pdf-total-pages">0</span></span>
-    <a href="/assets/docs/nome-documento.pdf" class="pdf-download-link" download>scarica pdf</a>
-  </div>
-</div>
+{% include pdf-viewer.html url="/assets/docs/nome-documento.pdf" %}
 ```
 
 > [!IMPORTANT]
-> cambia `nome-documento.pdf` in entrambi i posti (in `data-pdf-url` e nel link `href` di download).
+> per cambiare il comportamento vedi file `_includes/pdf-viewer.html`
+
 
 ---
 
-### 5. articolo misto (testo + foto + video + pdf)
-
-puoi mischiare tutto nello stesso articolo:
-
-```markdown
----
-title: "progetto completo"
-category: "progetti"
-date: 2026-10-01 10:00:00 +0200
----
-## introduzione
-
-testo introduttivo del progetto.
-
-![foto del progetto](/assets/images/progetto-foto.jpg)
-
-## video di presentazione
-
-<div class="peertube-embed">
-  <iframe src="https://tubocatodico.bida.im/videos/embed/ID-VIDEO" 
-          frameborder="0" allowfullscreen 
-          sandbox="allow-same-origin allow-scripts allow-popups"></iframe>
-</div>
-
-## documentazione
-
-<div class="pdf-viewer" data-pdf-url="/assets/docs/progetto-doc.pdf">
-  <div class="pdf-controls">
-    <button class="pdf-btn pdf-prev-btn">&lt;</button>
-    <button class="pdf-btn pdf-fullscreen-btn">fullscreen</button>
-    <button class="pdf-btn pdf-next-btn">&gt;</button>
-  </div>
-  <div class="pdf-canvas-container">
-    <canvas class="pdf-canvas"></canvas>
-  </div>
-  <div class="pdf-footer">
-    <span class="pdf-page-info">pagina <span class="pdf-current-page">1</span> di <span class="pdf-total-pages">0</span></span>
-    <a href="/assets/docs/progetto-doc.pdf" class="pdf-download-link" download>scarica pdf</a>
-  </div>
-</div>
-```
-
----
 
 ## come aggiungere nuove pagine
 
@@ -316,10 +269,10 @@ permalink: /progetto-segreto/
 ## come vedere le modifiche
 
 ```bash
-bundle exec jekyll serve
+bundle exec jekyll serve --livereload
 ```
 
-poi apri **http://localhost:4000** — il sito si aggiorna automaticamente quando salvi un file.
+poi apri **http://localhost:4000** — il sito si aggiorna automaticamente.
 
 ---
 

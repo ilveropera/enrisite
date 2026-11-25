@@ -1,12 +1,12 @@
-title: enri
-description: "Portfolio di enri costruito con Jekyll"
+title: enrisite
+description: "enrisite"
 url: "http://localhost:4000"
 
 category_order:
-  - "Generale"
-  - "documenti"
-  - "video"
-  - "fotografia"
+  - "macro"
+  - "medio"
+  - "micro"
+  - "scritto"
 
 collections:
   articles:
@@ -19,3 +19,10 @@ defaults:
       type: "articles"
     values:
       layout: "post"
+      
+plugins:
+  - jekyll-feed
+
+feed:
+  collections:
+    - articles
