@@ -9,7 +9,7 @@ Del tema “ambiente” sentiamo quotidianamente parlare, in varie sedi e con va
 
 Semplicemente mi sono posto l'obbiettivo di comprendere come si è arrivati a questa situazione, cosa si e' fatto all'ambiente e in che modo, in aggiunta propongo alcune azioni da seguire per ridurre lo spreco di energia.
 
-![pag1](/assets/images/punti eni pag 1.png)
-![pag2](/assets/images/punti eni pag 2.png)
+![pag1]({{'/assets/images/punti eni pag 1.png' | relative_url }})
+![pag2]({{'/assets/images/punti eni pag 2.png' | relative_url }})
 
 

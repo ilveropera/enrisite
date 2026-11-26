@@ -24,7 +24,7 @@ FUTURO PONDERANO nasce nel 2012 proprio dal bisogno di occuparsi della manutenzi
 
 Il 27 aprile 2014 in occasione del “la giornata della bellezza” il comitato in collaborazione di Legambiente installò _Pinocchio_ una scultura lignea che custodisce il parco e gli alberi da poco piantati.
 
-![arti_civiche.png](/assets/images/arti_civiche.png)
+![arti_civiche.png]({{'/assets/images/arti_civiche.png' | relative_url }})
 
 La mia è un’azione discreta, semplice, non permanente e come tutte le fiabe tenta di avere una morale: accanto ad un _verde_ generato dal rispetto degli standard urbanistici, opero su un’architettura kitsch di servizio. Cito _il paese dei balocchi_ per rivolgermi ad una città con molte aspettative, spesso non esaudite ma con una consapevolezza crescente dell'importanza dei beni comuni.
 

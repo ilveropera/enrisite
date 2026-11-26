@@ -13,7 +13,7 @@ _con chiara luchetti_<br>
 _relatori francesco careri, fabrizio finucci_<br>
 _università degli studi roma tre_
 
-![copertina](/assets/images/porto1.png)
+![copertina]({{'/assets/images/porto1.png' | relative_url }})
 
 L’esercizio di tesi è stato svolto quasi interamente nel luogo di progetto dal gennaio 2017. Osservando e sostenendo un processo in atto da 14 anni, proponiamo uno studio di fattibilità per il recupero a scopo abitativo di un edificio storico sottoposto a vincolo dalla sovrintendenza.
 
